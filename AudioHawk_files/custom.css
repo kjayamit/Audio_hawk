@@ -1,0 +1,125 @@
+/* customization bar styles */
+#customization{	
+    position: absolute;
+    top: 100px;
+    width: 190px;
+    z-index: 10002;    
+	padding-top: 15px;
+	color: #FFFFFF;
+}
+
+#customization #show_hide{
+    height: 37px;
+    position: absolute;
+    right: -37px;
+    top: 30px;
+	cursor:pointer;
+    width: 37px;
+}
+#customization #show_hide img{
+	margin:10px 0 0 10px;
+}
+
+#customization select{
+    background: none repeat scroll 0 0 #151515;
+    color: #757575;
+    padding: 5px;
+    width: 100%;
+}
+
+.c_btn{
+	margin-top:15px;
+	margin-bottom:10px;
+	height:34px;
+	float:left;
+	padding:0 15px;
+	line-height:34px;
+	background-color:#272626;
+	border-top:solid 1px #434141;
+	border-left:solid 1px #434141;
+	border-right:solid 1px #0f0f0f;
+	border-bottom:solid 1px #0f0f0f;
+	cursor:pointer;
+	
+	-moz-border-radius:12px;
+	-khtml-border-radius:12px;
+	-webkit-border-radius:12px;
+	border-radius:12px;
+	
+	background: -moz-linear-gradient(#272626, #161616); /* FF 3.6+ */  
+    background: -ms-linear-gradient(#272626, #161616); /* IE10 */  
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #272626), color-stop(100%, #161616)); /* Safari 4+, Chrome 2+ */  
+    background: -webkit-linear-gradient(#272626, #161616); /* Safari 5.1+, Chrome 10+ */  
+    background: -o-linear-gradient(#272626, #161616); /* Opera 11.10 */  
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#272626', endColorstr='#161616'); /* IE6 & IE7 */  
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#272626', endColorstr='#161616')"; /* IE8+ */  
+    background: linear-gradient(#272626, #161616); /* the standard */
+}
+
+.c_btn:hover{
+	border-top:solid 1px #0f0f0f;
+	border-left:solid 1px #0f0f0f;
+	border-right:solid 1px #434141;
+	border-bottom:solid 1px #434141;
+}
+
+.c_reset{margin-right:9px;}
+.c_save{}
+
+.colorSelectorText{
+    font-size: 12px;
+    left: 0;
+    position: absolute;
+    text-align: right;
+    top: 9px;
+    width: 103px;
+}
+.customization_header{
+	font-size:12px;
+	width:150px;
+	height:30px;
+	line-height:30px;
+	margin:0 auto;
+}
+.customization_items{
+	padding-bottom:10px;
+	width:150px;
+	margin:0 auto;
+	position:relative;
+}
+.customization_style{
+	border-top:solid 1px #424242;
+	border-right:solid 1px #424242;
+	border-bottom:solid 1px #424242;
+	
+    background: none repeat scroll 0 0 #232323;	
+}
+.c_oh{overflow:hidden;}
+
+#background_samples {}
+.bg_s_item{
+	cursor:pointer;
+	margin: 0 3px 4px 0;
+	float:left;
+	border:solid #323233 1px;
+	border-color: #060606 #323233 #323233 #060606;
+}
+.bg_s_item:hover{
+	border:solid #6c6d6e 1px;
+}
+.bg_s_item div{
+	border:solid #151515 2px;
+	width:20px;
+	height:16px;
+}
+.divider {
+    border-bottom: 1px solid #242424;
+    border-top: 1px solid #000000;
+    clear: both;
+    display: block;
+    margin-top: 0px;
+    position: relative;
+}
+
+/* customization bar styles end */
+
