@@ -1,11 +1,92 @@
-/*
-	Kwicks for jQuery (version 1.5.1)
-	Copyright (c) 2008 Jeremy Martin
-	http://www.jeremymartin.name/projects.php?project=kwicks
-	
-	Licensed under the MIT license:
-		http://www.opensource.org/licenses/mit-license.php
+/**
+ * Cookie plugin
+ *
+ * Copyright (c) 2006 Klaus Hartl (stilbuero.de)
+ * Dual licensed under the MIT and GPL licenses:
+ * http://www.opensource.org/licenses/mit-license.php
+ * http://www.gnu.org/licenses/gpl.html
+ *
+ */
 
-	Any and all use of this script must be accompanied by this copyright/license notice in its present form.
-*/
-(function($){$.fn.kwicks=function(n){var p={isVertical:false,sticky:false,defaultKwick:0,event:'mouseover',spacing:0,duration:500};var o=$.extend(p,n);var q=(o.isVertical?'height':'width');var r=(o.isVertical?'top':'left');return this.each(function(){container=$(this);var k=container.children('li');var l=k.eq(0).css(q).replace(/px/,'');if(!o.max){o.max=(l*k.size())-(o.min*(k.size()-1))}else{o.min=((l*k.size())-o.max)/(k.size()-1)}if(o.isVertical){container.css({width:k.eq(0).css('width'),height:(l*k.size())+(o.spacing*(k.size()-1))+'px'})}else{container.css({width:(l*k.size())+(o.spacing*(k.size()-1))+'px',height:k.eq(0).css('height')})}var m=[];for(i=0;i<k.size();i++){m[i]=[];for(j=1;j<k.size()-1;j++){if(i==j){m[i][j]=o.isVertical?j*o.min+(j*o.spacing):j*o.min+(j*o.spacing)}else{m[i][j]=(j<=i?(j*o.min):(j-1)*o.min+o.max)+(j*o.spacing)}}}k.each(function(i){var h=$(this);if(i===0){h.css(r,'0px')}else if(i==k.size()-1){h.css(o.isVertical?'bottom':'right','0px')}else{if(o.sticky){h.css(r,m[o.defaultKwick][i])}else{h.css(r,(i*l)+(i*o.spacing))}}if(o.sticky){if(o.defaultKwick==i){h.css(q,o.max+'px');h.addClass('active')}else{h.css(q,o.min+'px')}}h.css({margin:0,position:'absolute'});h.bind(o.event,function(){var c=[];var d=[];k.stop().removeClass('active');for(j=0;j<k.size();j++){c[j]=k.eq(j).css(q).replace(/px/,'');d[j]=k.eq(j).css(r).replace(/px/,'')}var e={};e[q]=o.max;var f=o.max-c[i];var g=c[i]/f;h.addClass('active').animate(e,{step:function(a){var b=f!=0?a/f-g:1;k.each(function(j){if(j!=i){k.eq(j).css(q,c[j]-((c[j]-o.min)*b)+'px')}if(j>0&&j<k.size()-1){k.eq(j).css(r,d[j]-((d[j]-m[i][j])*b)+'px')}})},duration:o.duration,easing:o.easing})})});if(!o.sticky){container.bind("mouseleave",function(){var c=[];var d=[];k.removeClass('active').stop();for(i=0;i<k.size();i++){c[i]=k.eq(i).css(q).replace(/px/,'');d[i]=k.eq(i).css(r).replace(/px/,'')}var e={};e[q]=l;var f=l-c[0];k.eq(0).animate(e,{step:function(a){var b=f!=0?(a-c[0])/f:1;for(i=1;i<k.size();i++){k.eq(i).css(q,c[i]-((c[i]-l)*b)+'px');if(i<k.size()-1){k.eq(i).css(r,d[i]-((d[i]-((i*l)+(i*o.spacing)))*b)+'px')}}},duration:o.duration,easing:o.easing})})}})}})(jQuery);
+/**
+ * Create a cookie with the given name and value and other optional parameters.
+ *
+ * @example $.cookie('the_cookie', 'the_value');
+ * @desc Set the value of a cookie.
+ * @example $.cookie('the_cookie', 'the_value', {expires: 7, path: '/', domain: 'jquery.com', secure: true});
+ * @desc Create a cookie with all available options.
+ * @example $.cookie('the_cookie', 'the_value');
+ * @desc Create a session cookie.
+ * @example $.cookie('the_cookie', null);
+ * @desc Delete a cookie by passing null as value.
+ *
+ * @param String name The name of the cookie.
+ * @param String value The value of the cookie.
+ * @param Object options An object literal containing key/value pairs to provide optional cookie attributes.
+ * @option Number|Date expires Either an integer specifying the expiration date from now on in days or a Date object.
+ *                             If a negative value is specified (e.g. a date in the past), the cookie will be deleted.
+ *                             If set to null or omitted, the cookie will be a session cookie and will not be retained
+ *                             when the the browser exits.
+ * @option String path The value of the path atribute of the cookie (default: path of page that created the cookie).
+ * @option String domain The value of the domain attribute of the cookie (default: domain of page that created the cookie).
+ * @option Boolean secure If true, the secure attribute of the cookie will be set and the cookie transmission will
+ *                        require a secure protocol (like HTTPS).
+ * @type undefined
+ *
+ * @name $.cookie
+ * @cat Plugins/Cookie
+ * @author Klaus Hartl/klaus.hartl@stilbuero.de
+ */
+
+/**
+ * Get the value of a cookie with the given name.
+ *
+ * @example $.cookie('the_cookie');
+ * @desc Get the value of a cookie.
+ *
+ * @param String name The name of the cookie.
+ * @return The value of the cookie.
+ * @type String
+ *
+ * @name $.cookie
+ * @cat Plugins/Cookie
+ * @author Klaus Hartl/klaus.hartl@stilbuero.de
+ */
+jQuery.cookie = function(name, value, options) {
+    if (typeof value != 'undefined') { // name and value given, set cookie
+        options = options || {};
+        if (value === null) {
+            value = '';
+            options.expires = -1;
+        }
+        var expires = '';
+        if (options.expires && (typeof options.expires == 'number' || options.expires.toUTCString)) {
+            var date;
+            if (typeof options.expires == 'number') {
+                date = new Date();
+                date.setTime(date.getTime() + (options.expires * 24 * 60 * 60 * 1000));
+            } else {
+                date = options.expires;
+            }
+            expires = '; expires=' + date.toUTCString(); // use expires attribute, max-age is not supported by IE
+        }
+        var path = options.path ? '; path=' + options.path : '';
+        var domain = options.domain ? '; domain=' + options.domain : '';
+        var secure = options.secure ? '; secure' : '';
+        document.cookie = [name, '=', encodeURIComponent(value), expires, path, domain, secure].join('');
+    } else { // only name given, get cookie
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+};
